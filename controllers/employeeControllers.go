@@ -6,16 +6,16 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// создание работника
 func CreateEmployee(c *gin.Context) {
-	///req body data
 	var body struct {
 		Name           string
 		SecondName     string
 		Age            int
 		WorkExperience string
 	}
-
 	c.Bind(&body)
+
 	employee := models.Employee{
 		Name: body.Name, SecondName: body.SecondName, Age: body.Age, WorkExperience: body.WorkExperience,
 	}
@@ -30,6 +30,7 @@ func CreateEmployee(c *gin.Context) {
 	})
 }
 
+// получение всех работников
 func GetEmployee(c *gin.Context) {
 	var employee []models.Employee
 	//get all
@@ -39,6 +40,8 @@ func GetEmployee(c *gin.Context) {
 		"employee": employee,
 	})
 }
+
+// получение работника по id
 func GetEmployeeById(c *gin.Context) {
 	id := c.Param("id")
 	var employee models.Employee
@@ -49,6 +52,8 @@ func GetEmployeeById(c *gin.Context) {
 		"employee": employee,
 	})
 }
+
+// обновление работника
 func UpDateEmployee(c *gin.Context) {
 	id := c.Param("id")
 
@@ -73,6 +78,8 @@ func UpDateEmployee(c *gin.Context) {
 		"employee": employee,
 	})
 }
+
+// удаление работника
 func DeleteEmployee(c *gin.Context) {
 	id := c.Param("id")
 	initializers.DB.Delete(&models.Employee{}, id)
